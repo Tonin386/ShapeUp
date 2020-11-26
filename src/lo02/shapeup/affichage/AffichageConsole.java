@@ -72,7 +72,7 @@ public class AffichageConsole implements Affichage {
 	public int choisirAction() {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Veuillez choisir l'action à effectuer :");
+		System.out.println("Veuillez choisir l'action �  effectuer :");
 		System.out.println("0 - Poser carte.");
 		System.out.println("1 - Déplacer carte.");
 
