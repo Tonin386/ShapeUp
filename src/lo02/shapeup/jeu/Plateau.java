@@ -77,11 +77,7 @@ public class Plateau {
 		for(Map.Entry<List<Integer>, Carte> entry : this.disposition.entrySet()) {
 
 			List<Integer> positionOrigine = entry.getKey();
-			List<Integer> deplacement = new ArrayList<Integer>();
-			deplacement.add(0);
-			deplacement.add(0);
-			deplacement.add(0);
-			deplacement.add(0);
+			List<Integer> deplacement;
 
 			Map<List<Integer>, Carte> copieDisposition = new HashMap<List<Integer>, Carte>(this.disposition);	
 			copieDisposition.remove(positionOrigine);
@@ -122,45 +118,49 @@ public class Plateau {
 				for(List<Integer> coords : positionsOccupees) {
 					List<Integer> audessus = new ArrayList<Integer>();
 					audessus.add(coords.get(0));
-					audessus.add(coords.get(1) - 1);
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, audessus.get(0));
-					deplacement.set(3, audessus.get(1));
-					if(audessus != positionOrigine && !positionsOccupees.contains(audessus) && !deplacementsPossibles.contains(deplacement)) {
+					audessus.add(coords.get(1) - 1); deplacement = new ArrayList<Integer>();
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(audessus.get(0));
+					deplacement.add(audessus.get(1));
+					if(!audessus.equals(positionOrigine) && !positionsOccupees.contains(audessus) && !deplacementsPossibles.contains(deplacement)) {
 						deplacementsPossibles.add(deplacement);
 					}
 
 					List<Integer> endessous = new ArrayList<Integer>();
 					endessous.add(coords.get(0));
 					endessous.add(coords.get(1) + 1);
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, endessous.get(0));
-					deplacement.set(3, endessous.get(1));
-					if(endessous != positionOrigine && !positionsOccupees.contains(endessous) && !deplacementsPossibles.contains(deplacement)) {
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(endessous.get(0));
+					deplacement.add(endessous.get(1));
+					if(!endessous.equals(positionOrigine) && !positionsOccupees.contains(endessous) && !deplacementsPossibles.contains(deplacement)) {
 						deplacementsPossibles.add(deplacement);
 					}
 
 					List<Integer> adroite = new ArrayList<Integer>();
 					adroite.add(coords.get(0) + 1);
 					adroite.add(coords.get(1));
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, adroite.get(0));
-					deplacement.set(3, adroite.get(1));
-					if(adroite != positionOrigine && !positionsOccupees.contains(adroite) && !deplacementsPossibles.contains(deplacement)) {
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(adroite.get(0));
+					deplacement.add(adroite.get(1));
+					if(!adroite.equals(positionOrigine) && !positionsOccupees.contains(adroite) && !deplacementsPossibles.contains(deplacement)) {
 						deplacementsPossibles.add(deplacement);
 					}
 
 					List<Integer> agauche = new ArrayList<Integer>();
 					agauche.add(coords.get(0) - 1);
 					agauche.add(coords.get(1));
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, agauche.get(0));
-					deplacement.set(3, agauche.get(1));
-					if(agauche != positionOrigine && !positionsOccupees.contains(agauche) && !deplacementsPossibles.contains(deplacement)) {
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(agauche.get(0));
+					deplacement.add(agauche.get(1));
+					if(!agauche.equals(positionOrigine) && !positionsOccupees.contains(agauche) && !deplacementsPossibles.contains(deplacement)) {
 						deplacementsPossibles.add(deplacement);
 					}
 				}
@@ -170,44 +170,48 @@ public class Plateau {
 					List<Integer> audessus = new ArrayList<Integer>();
 					audessus.add(coords.get(0));
 					audessus.add(coords.get(1) - 1);
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, audessus.get(0));
-					deplacement.set(3, audessus.get(1));
-					if(audessus != positionOrigine && audessus.get(1) >= porteeYCopie.get(0) && !positionsOccupees.contains(audessus) && !deplacementsPossibles.contains(deplacement)) {					
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(audessus.get(0));
+					deplacement.add(audessus.get(1));
+					if(!audessus.equals(positionOrigine) && audessus.get(1) >= porteeYCopie.get(0) && !positionsOccupees.contains(audessus) && !deplacementsPossibles.contains(deplacement)) {					
 						deplacementsPossibles.add(deplacement);
 					}
 
 					List<Integer> endessous = new ArrayList<Integer>();
 					endessous.add(coords.get(0));
 					endessous.add(coords.get(1) + 1);
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, endessous.get(0));
-					deplacement.set(3, endessous.get(1));
-					if(endessous != positionOrigine && endessous.get(1) <= porteeYCopie.get(1) && !positionsOccupees.contains(endessous) && !deplacementsPossibles.contains(deplacement)) {					
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(endessous.get(0));
+					deplacement.add(endessous.get(1));
+					if(!endessous.equals(positionOrigine) && endessous.get(1) <= porteeYCopie.get(1) && !positionsOccupees.contains(endessous) && !deplacementsPossibles.contains(deplacement)) {					
 						deplacementsPossibles.add(deplacement);
 					}
 
 					List<Integer> adroite = new ArrayList<Integer>();
 					adroite.add(coords.get(0) + 1);
 					adroite.add(coords.get(1));
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, adroite.get(0));
-					deplacement.set(3, adroite.get(1));
-					if(adroite != positionOrigine && !positionsOccupees.contains(adroite) && !deplacementsPossibles.contains(deplacement)) {						
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(adroite.get(0));
+					deplacement.add(adroite.get(1));
+					if(!adroite.equals(positionOrigine) && !positionsOccupees.contains(adroite) && !deplacementsPossibles.contains(deplacement)) {						
 						deplacementsPossibles.add(deplacement);
 					}
 
 					List<Integer> agauche = new ArrayList<Integer>();
 					agauche.add(coords.get(0) - 1);
 					agauche.add(coords.get(1));
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, agauche.get(0));
-					deplacement.set(3, agauche.get(1));
-					if(agauche != positionOrigine && !positionsOccupees.contains(agauche) && !deplacementsPossibles.contains(agauche)) {						
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(agauche.get(0));
+					deplacement.add(agauche.get(1));
+					if(!agauche.equals(positionOrigine) && !positionsOccupees.contains(agauche) && !deplacementsPossibles.contains(agauche)) {						
 						deplacementsPossibles.add(deplacement);
 					}
 				}
@@ -217,44 +221,48 @@ public class Plateau {
 					List<Integer> audessus = new ArrayList<Integer>();
 					audessus.add(coords.get(0));
 					audessus.add(coords.get(1) - 1);
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, audessus.get(0));
-					deplacement.set(3, audessus.get(1));
-					if(audessus != positionOrigine && !positionsOccupees.contains(audessus) && !deplacementsPossibles.contains(deplacement)) {						
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(audessus.get(0));
+					deplacement.add(audessus.get(1));
+					if(!audessus.equals(positionOrigine) && !positionsOccupees.contains(audessus) && !deplacementsPossibles.contains(deplacement)) {						
 						deplacementsPossibles.add(deplacement);
 					}
 
 					List<Integer> endessous = new ArrayList<Integer>();
 					endessous.add(coords.get(0));
 					endessous.add(coords.get(1) + 1);
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, endessous.get(0));
-					deplacement.set(3, endessous.get(1));
-					if(endessous != positionOrigine && !positionsOccupees.contains(endessous) && !deplacementsPossibles.contains(deplacement)) {						
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(endessous.get(0));
+					deplacement.add(endessous.get(1));
+					if(!endessous.equals(positionOrigine) && !positionsOccupees.contains(endessous) && !deplacementsPossibles.contains(deplacement)) {						
 						deplacementsPossibles.add(deplacement);
 					}
 
 					List<Integer> adroite = new ArrayList<Integer>();
 					adroite.add(coords.get(0) + 1);
 					adroite.add(coords.get(1));
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, adroite.get(0));
-					deplacement.set(3, adroite.get(1));
-					if(adroite != positionOrigine && adroite.get(0) <= porteeXCopie.get(1) && !positionsOccupees.contains(adroite) && !deplacementsPossibles.contains(deplacement)) {						
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(adroite.get(0));
+					deplacement.add(adroite.get(1));
+					if(!adroite.equals(positionOrigine) && adroite.get(0) <= porteeXCopie.get(1) && !positionsOccupees.contains(adroite) && !deplacementsPossibles.contains(deplacement)) {						
 						deplacementsPossibles.add(deplacement);
 					}
 
 					List<Integer> agauche = new ArrayList<Integer>();
 					agauche.add(coords.get(0) - 1);
 					agauche.add(coords.get(1));
-					deplacement.set(0, positionOrigine.get(0));
-					deplacement.set(1, positionOrigine.get(1));
-					deplacement.set(2, agauche.get(0));
-					deplacement.set(3, agauche.get(1));
-					if(agauche != positionOrigine && agauche.get(0) >= porteeXCopie.get(0) && !positionsOccupees.contains(agauche) && !deplacementsPossibles.contains(deplacement)) {						
+					deplacement = new ArrayList<Integer>();
+					deplacement.add(positionOrigine.get(0));
+					deplacement.add(positionOrigine.get(1));
+					deplacement.add(agauche.get(0));
+					deplacement.add(agauche.get(1));
+					if(!agauche.equals(positionOrigine) && agauche.get(0) >= porteeXCopie.get(0) && !positionsOccupees.contains(agauche) && !deplacementsPossibles.contains(deplacement)) {						
 						deplacementsPossibles.add(deplacement);
 					}
 				}
