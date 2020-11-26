@@ -73,20 +73,23 @@ public class Plateau {
 	
 	public List<List<Integer>> getDeplacementsPossibles() {
 		List<List<Integer>> deplacementsPossibles = new ArrayList<List<Integer>>();
-		List<Integer> deplacement = new ArrayList<Integer>();
-		deplacement.add(0);
-		deplacement.add(0);
-		deplacement.add(0);
-		deplacement.add(0);
 
 		for(Map.Entry<List<Integer>, Carte> entry : this.disposition.entrySet()) {
 
 			List<Integer> positionOrigine = entry.getKey();
+			List<Integer> deplacement = new ArrayList<Integer>();
+			deplacement.add(0);
+			deplacement.add(0);
+			deplacement.add(0);
+			deplacement.add(0);
+
 			Map<List<Integer>, Carte> copieDisposition = new HashMap<List<Integer>, Carte>(this.disposition);	
 			copieDisposition.remove(positionOrigine);
+
 			List<Integer> porteeXCopie = new ArrayList<Integer>();
 			porteeXCopie.add(0);
 			porteeXCopie.add(0);
+			
 			List<Integer> porteeYCopie = new ArrayList<Integer>();
 			porteeYCopie.add(0);
 			porteeYCopie.add(0);

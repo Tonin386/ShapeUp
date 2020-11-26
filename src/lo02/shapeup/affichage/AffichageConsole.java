@@ -140,17 +140,16 @@ public class AffichageConsole implements Affichage {
 		List<Integer> porteeY = plateau.getPorteeY();
 
 		for(int y = porteeY.get(0); y <= porteeY.get(1); y++) {
-			asciiPlateau += y + " - ";
 			for(int x = porteeX.get(0); x <= porteeX.get(1); x++) {
 
 				List<Integer> coords = new ArrayList<Integer>();
 				coords.add(x);
 				coords.add(y);
 				if(coordinates.contains(coords)) {
-					asciiPlateau +=  x + "." + disposition.get(coords) + " ";
+					asciiPlateau += "\t("+ x + ";" + y + ") " + disposition.get(coords);
 				}
 				else {
-					asciiPlateau += x + ".Aucune carte ";
+					asciiPlateau += "\t("+ x + ";" + y + ") " +  "     Aucune carte      ";
 				}
 			}
 			asciiPlateau += '\n';
