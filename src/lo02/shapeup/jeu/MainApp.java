@@ -1,6 +1,7 @@
-package lo02;
+package lo02.shapeup.jeu;
 
 import java.util.Scanner;
+import lo02.shapeup.affichage.*;
 
 public class MainApp {
 
@@ -13,8 +14,11 @@ public class MainApp {
 		System.out.println("1 - Interface graphique (Non-implémentée)");
 		
 		int modeAffichage = scan.nextInt();
+		Affichage affichage;
 		
 		if(modeAffichage == 0) {
+			
+			affichage = new AffichageConsole();
 			
 			System.out.println("Veuillez choisir le mode de jeu.");
 			System.out.println("0 - Deux joueurs, mode simple");
@@ -23,12 +27,19 @@ public class MainApp {
 			System.out.println("3 - Trois joueurs, mode avancé");
 
 			int modeDeJeu = scan.nextInt();
-			
-			PartieConsole partie = new PartieConsole(modeDeJeu);
-			partie.jouer();
+			Partie partie = new Partie(modeDeJeu, affichage);
+
+			while(partie.estFinie() == false) {
+				partie.jouer();	
+			}
+
+			System.out.println("Partie terminée !");
 		}
 		else {
+			scan.close();
 			return;
 		}
+		
+		scan.close();
 	}
 }

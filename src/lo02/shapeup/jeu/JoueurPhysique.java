@@ -1,4 +1,4 @@
-package lo02;
+package lo02.shapeup.jeu;
 
 public class JoueurPhysique extends Joueur {
 

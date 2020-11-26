@@ -1,4 +1,4 @@
-package lo02;
+package lo02.shapeup.jeu;
 
 public abstract class Joueur {
 
@@ -30,7 +30,12 @@ public abstract class Joueur {
 		return false; //TODO
 	}
 
-	public void piocher(Carte c) {
+	public Carte piocherVictorieuse(Carte c) {
+		this.victorieuse = this.piocher(c);
+		return c;
+	}
+
+	public Carte piocher(Carte c) {
 		int i = 0;
 		boolean trouve = false;
 		while(i < 3 && !trouve) {
@@ -42,7 +47,12 @@ public abstract class Joueur {
 				i++;
 			}
 		}
+		
+		return c;
+	}
 
+	public String toString() {
+		return nom;
 	}
 
 }

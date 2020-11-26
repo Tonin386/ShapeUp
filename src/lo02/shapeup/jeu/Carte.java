@@ -1,4 +1,4 @@
-package lo02;
+package lo02.shapeup.jeu;
 
 public class Carte {
 	
@@ -27,6 +27,7 @@ public class Carte {
 		this.remplissage = -1;
 	}
 	
+	@SuppressWarnings("static-access")
 	public Carte(int couleur, int forme, int remplissage) {
 		this.couleur = this.COULEURS[couleur];
 		this.forme = this.FORMES[forme];
@@ -58,5 +59,9 @@ public class Carte {
 		return this.remplissage;
 	}
 
+	@SuppressWarnings("static-access")
+	public String toString() {
+		return "Carte " + this.forme + " " + this.couleur + " " + this.REMPLISSAGES[this.remplissage];
+	}
 
 }
