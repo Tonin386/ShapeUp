@@ -26,6 +26,20 @@ public class Partie  {
 		this.tour = 0;
 		this.banque = new Banque();
 		this.plateau = new Plateau();
+		this.affichage = affichage;
+
+		switch(modeDeJeu) {
+			default:
+			case 0:
+			case 1:
+			this.regleDuJeu = new RegleSimple();
+			break;
+			case 2:
+			case 3:
+			this.regleDuJeu = new RegleAvancee();
+			break;
+		}
+		
 		
 		this.joueurs = this.affichage.definirJoueurs(modeDeJeu);
 	}

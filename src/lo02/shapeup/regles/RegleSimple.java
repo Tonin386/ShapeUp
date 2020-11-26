@@ -14,12 +14,11 @@ public class RegleSimple implements Regle {
 	@Override
 	public void jouer(Partie partie) {
 		
-		int tour = partie.getTour();
 		Plateau plateau = partie.getPlateau();
 
 		Carte c = partie.piocher();
 
-		if(tour != 0) {
+		if(plateau.getCartesPosees() != 0) {
 			int action = partie.getAffichage().choisirAction();
 
 			boolean aPoseCarte = false;
@@ -30,13 +29,13 @@ public class RegleSimple implements Regle {
 				plateau.poserCarte(position[0], position[1], c);
 				aPoseCarte = true;
 			}
-			else if(action == 1) {
+			else if(action == 1 && plateau.getCartesPosees() > 1) {
 				int deplacement[] = partie.getAffichage().choisirDeplacementCarte(plateau.getDeplacementsPossibles());
 				plateau.deplacerCarte(deplacement[0], deplacement[1], deplacement[2], deplacement[3]);
 				aDeplaceCarte = true;
 			}
 
-			if(aDeplaceCarte == false) {
+			if(aDeplaceCarte == false && plateau.getCartesPosees() > 1) {
 				action = partie.getAffichage().demanderDeplacement();	
 
 				if(action == 0) {

@@ -24,7 +24,7 @@ public class Banque {
 
 	public Carte piocher() {
 		this.index--;
-		return this.deck[index+1];
+		return this.deck[index];
 	}
 	
 	private void melanger() {

@@ -68,7 +68,7 @@ public class Plateau {
 		for(Map.Entry<int[], Carte> entry : this.disposition.entrySet()) {
 
 			int[] positionOrigine = entry.getKey();
-			Map<int[], Carte> copieDisposition = this.disposition;	
+			Map<int[], Carte> copieDisposition = new HashMap<int[], Carte>(this.disposition);	
 			copieDisposition.remove(positionOrigine);
 			int[] porteeXCopie = new int[]{0, 0};
 			int[] porteeYCopie = new int[]{0, 0};
@@ -100,23 +100,22 @@ public class Plateau {
 			if(nombreRangees < 4 && nombreColonnes < 4) {
 				for(int[] coords : positionsOccupees) {
 					int audessus[] = new int[] {coords[0], coords[1] - 1};
-					if(!Arrays.asList(positionsOccupees).contains(audessus) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], audessus[0], audessus[1]})) {
+					if(audessus != positionOrigine && !Arrays.asList(positionsOccupees).contains(audessus) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], audessus[0], audessus[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], audessus[0], audessus[1]});
 					}
 
 					int endessous[] = new int[] {coords[0], coords[1] + 1};
-					if(!Arrays.asList(positionsOccupees).contains(endessous) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], endessous[0], endessous[1]})) {
+					if(endessous != positionOrigine && !Arrays.asList(positionsOccupees).contains(endessous) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], endessous[0], endessous[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], endessous[0], endessous[1]});
 					}
 
 					int adroite[] = new int[] {coords[0] + 1, coords[1]};
-
-					if(!Arrays.asList(positionsOccupees).contains(adroite) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], adroite[0], adroite[1]})) {
+					if(adroite != positionOrigine && !Arrays.asList(positionsOccupees).contains(adroite) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], adroite[0], adroite[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], adroite[0], adroite[1]});
 					}
 
 					int agauche[] = new int[] {coords[0] - 1, coords[1]};
-					if(!Arrays.asList(positionsOccupees).contains(agauche) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], agauche[0], agauche[1]})) {
+					if(agauche != positionOrigine && !Arrays.asList(positionsOccupees).contains(agauche) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], agauche[0], agauche[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], agauche[0], agauche[1]});
 					}
 				}
@@ -124,23 +123,22 @@ public class Plateau {
 			else if(nombreColonnes > 3) {
 				for(int[] coords : positionsOccupees) {
 					int audessus[] = new int[] {coords[0], coords[1] - 1};
-					if(audessus[1] >= porteeYCopie[0] && !Arrays.asList(positionsOccupees).contains(audessus) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], audessus[0], audessus[1]})) {
+					if(audessus != positionOrigine && audessus[1] >= porteeYCopie[0] && !Arrays.asList(positionsOccupees).contains(audessus) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], audessus[0], audessus[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], audessus[0], audessus[1]});
 					}
 
 					int endessous[] = new int[] {coords[0], coords[1] + 1};
-					if(endessous[1] <= porteeYCopie[1] && !Arrays.asList(positionsOccupees).contains(endessous) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], endessous[0], endessous[1]})) {
+					if(endessous != positionOrigine && endessous[1] <= porteeYCopie[1] && !Arrays.asList(positionsOccupees).contains(endessous) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], endessous[0], endessous[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], endessous[0], endessous[1]});
 					}
 
 					int adroite[] = new int[] {coords[0] + 1, coords[1]};
-
-					if(!Arrays.asList(positionsOccupees).contains(adroite) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], adroite[0], adroite[1]})) {
+					if(adroite != positionOrigine && !Arrays.asList(positionsOccupees).contains(adroite) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], adroite[0], adroite[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], adroite[0], adroite[1]});
 					}
 
 					int agauche[] = new int[] {coords[0] - 1, coords[1]};
-					if(!Arrays.asList(positionsOccupees).contains(agauche) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], agauche[0], agauche[1]})) {
+					if(agauche != positionOrigine && !Arrays.asList(positionsOccupees).contains(agauche) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], agauche[0], agauche[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], agauche[0], agauche[1]});
 					}
 				}
@@ -148,23 +146,22 @@ public class Plateau {
 			else {
 				for(int[] coords : positionsOccupees) {
 					int audessus[] = new int[] {coords[0], coords[1] - 1};
-					if(!Arrays.asList(positionsOccupees).contains(audessus) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], audessus[0], audessus[1]})) {
+					if(audessus != positionOrigine && !Arrays.asList(positionsOccupees).contains(audessus) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], audessus[0], audessus[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], audessus[0], audessus[1]});
 					}
 
 					int endessous[] = new int[] {coords[0], coords[1] + 1};
-					if(!Arrays.asList(positionsOccupees).contains(endessous) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], endessous[0], endessous[1]})) {
+					if(endessous != positionOrigine && !Arrays.asList(positionsOccupees).contains(endessous) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], endessous[0], endessous[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], endessous[0], endessous[1]});
 					}
 
 					int adroite[] = new int[] {coords[0] + 1, coords[1]};
-
-					if(adroite[0] <= porteeXCopie[1] && !Arrays.asList(positionsOccupees).contains(adroite) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], adroite[0], adroite[1]})) {
+					if(adroite != positionOrigine && adroite[0] <= porteeXCopie[1] && !Arrays.asList(positionsOccupees).contains(adroite) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], adroite[0], adroite[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], adroite[0], adroite[1]});
 					}
 
 					int agauche[] = new int[] {coords[0] - 1, coords[1]};
-					if(agauche[0] >= porteeXCopie[0] && !Arrays.asList(positionsOccupees).contains(agauche) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], agauche[0], agauche[1]})) {
+					if(agauche != positionOrigine && agauche[0] >= porteeXCopie[0] && !Arrays.asList(positionsOccupees).contains(agauche) && !Arrays.asList(deplacementsPossibles).contains(new int[] {positionOrigine[0], positionOrigine[1], agauche[0], agauche[1]})) {
 						deplacementsPossibles.add(new int[] {positionOrigine[0], positionOrigine[1], agauche[0], agauche[1]});
 					}
 				}

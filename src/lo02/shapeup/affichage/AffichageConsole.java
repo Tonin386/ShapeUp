@@ -18,16 +18,16 @@ public class AffichageConsole implements Affichage {
 		switch(modeDeJeu) {
 			case 0:
 			case 2:
-			joueurs = new Joueur[1];
+			joueurs = new Joueur[2];
 			break;
 			
 			case 1:
 			case 3:
-			joueurs = new Joueur[2];
+			joueurs = new Joueur[3];
 			break;
 			
 			default:
-			joueurs = new Joueur[1];
+			joueurs = new Joueur[2];
 			break;
 		}
 		
@@ -64,7 +64,7 @@ public class AffichageConsole implements Affichage {
 
 	@Override
 	public Carte afficherCartePiochee(Carte c) {
-		System.out.println("La carte piochÃ©e est : " + c);
+		System.out.println("La carte piochée est : " + c);
 		return c;
 	}
 
@@ -72,9 +72,9 @@ public class AffichageConsole implements Affichage {
 	public int choisirAction() {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Veuillez choisir l'action Ã  effectuer :");
+		System.out.println("Veuillez choisir l'action à effectuer :");
 		System.out.println("0 - Poser carte.");
-		System.out.println("1 - DÃ©placer carte.");
+		System.out.println("1 - Déplacer carte.");
 
 		int action = scan.nextInt();
 
@@ -101,7 +101,7 @@ public class AffichageConsole implements Affichage {
 		System.out.println("Veuillez choisir une position :");
 		int i = 0;
 		while(i < positionnementsPossibles.size()) {
-			System.out.println(i + " - " + positionnementsPossibles.get(i));
+			System.out.println(i + " - " + positionnementsPossibles.get(i)[0] + ";" + positionnementsPossibles.get(i)[1]);
 			i++;
 		}
 
@@ -117,7 +117,7 @@ public class AffichageConsole implements Affichage {
 		System.out.println("Veuillez choisir un déplacement :");
 		int i = 0;
 		while(i < deplacementsPossibles.size()) {
-			System.out.println(i + " - " + deplacementsPossibles.get(i));
+			System.out.println(i + " - " + deplacementsPossibles.get(i)[0] + ";" + deplacementsPossibles.get(i)[1] + " -> " + deplacementsPossibles.get(i)[2] + ";" + deplacementsPossibles.get(i)[3]);
 			i++;
 		}
 

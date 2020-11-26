@@ -1,19 +1,22 @@
 package lo02.shapeup.jeu;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Joueur {
 
 	protected String nom;
-	protected Carte[] jeu;
-	protected Carte[] cartesPosees;
+	protected List<Carte> jeu;
+	protected List<Carte> cartesPosees;
 	protected Carte victorieuse;
 
 	public Joueur() {
-		jeu = new Carte[3];
+		this.jeu = new ArrayList<Carte>();
 	}
 	
 	public Joueur(String nom) {
 		this.nom = nom;
-		jeu = new Carte[3];
+		this.jeu = new ArrayList<Carte>();
 	}
 	
 	public abstract void jouer();
@@ -36,23 +39,12 @@ public abstract class Joueur {
 	}
 
 	public Carte piocher(Carte c) {
-		int i = 0;
-		boolean trouve = false;
-		while(i < 3 && !trouve) {
-			if(jeu[i].getCouleur() == "") {
-				jeu[i] = c;
-				trouve = true;
-			}
-			else {
-				i++;
-			}
-		}
-		
+		this.jeu.add(c);
 		return c;
 	}
 
 	public String toString() {
-		return nom;
+		return this.nom;
 	}
 
 }
