@@ -1,4 +1,7 @@
 package lo02.shapeup.regles;
+
+import java.util.List;
+
 import lo02.shapeup.jeu.*;
 
 public class RegleSimple implements Regle {
@@ -25,13 +28,13 @@ public class RegleSimple implements Regle {
 			boolean aDeplaceCarte = false;
 
 			if(action == 0) {
-				int position[] = partie.getAffichage().choisirPositionCarte(plateau.getPositionnementsPossibles());
-				plateau.poserCarte(position[0], position[1], c);
+				List<Integer> position = partie.getAffichage().choisirPositionCarte(plateau.getPositionnementsPossibles());
+				plateau.poserCarte(position.get(0), position.get(1), c);
 				aPoseCarte = true;
 			}
 			else if(action == 1 && plateau.getCartesPosees() > 1) {
-				int deplacement[] = partie.getAffichage().choisirDeplacementCarte(plateau.getDeplacementsPossibles());
-				plateau.deplacerCarte(deplacement[0], deplacement[1], deplacement[2], deplacement[3]);
+				List<Integer> deplacement = partie.getAffichage().choisirDeplacementCarte(plateau.getDeplacementsPossibles());
+				plateau.deplacerCarte(deplacement.get(0), deplacement.get(1), deplacement.get(2), deplacement.get(3));
 				aDeplaceCarte = true;
 			}
 
@@ -39,15 +42,15 @@ public class RegleSimple implements Regle {
 				action = partie.getAffichage().demanderDeplacement();	
 
 				if(action == 0) {
-					int deplacement[] = partie.getAffichage().choisirDeplacementCarte(plateau.getDeplacementsPossibles());
-					plateau.deplacerCarte(deplacement[0], deplacement[1], deplacement[2], deplacement[3]);
+					List<Integer> deplacement = partie.getAffichage().choisirDeplacementCarte(plateau.getDeplacementsPossibles());
+					plateau.deplacerCarte(deplacement.get(0), deplacement.get(1), deplacement.get(2), deplacement.get(3));
 					aDeplaceCarte = true;
 				}
 			}
 
 			if(aPoseCarte == false) {
-				int position[] = partie.getAffichage().choisirPositionCarte(plateau.getPositionnementsPossibles());
-				plateau.poserCarte(position[0], position[1], c);
+				List<Integer> position = partie.getAffichage().choisirPositionCarte(plateau.getPositionnementsPossibles());
+				plateau.poserCarte(position.get(0), position.get(1), c);
 				aPoseCarte = true;
 			}
 		}

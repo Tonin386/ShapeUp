@@ -2,6 +2,7 @@ package lo02.shapeup.affichage;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -95,13 +96,13 @@ public class AffichageConsole implements Affichage {
 	}
 
 	@Override
-	public int[] choisirPositionCarte(List<int[]> positionnementsPossibles) {
+	public List<Integer> choisirPositionCarte(List<List<Integer>> positionnementsPossibles) {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Veuillez choisir une position :");
 		int i = 0;
 		while(i < positionnementsPossibles.size()) {
-			System.out.println(i + " - " + positionnementsPossibles.get(i)[0] + ";" + positionnementsPossibles.get(i)[1]);
+			System.out.println(i + " - " + positionnementsPossibles.get(i).get(0) + ";" + positionnementsPossibles.get(i).get(1));
 			i++;
 		}
 
@@ -111,13 +112,13 @@ public class AffichageConsole implements Affichage {
 	}
 
 	@Override
-	public int[] choisirDeplacementCarte(List<int[]> deplacementsPossibles) {
+	public List<Integer> choisirDeplacementCarte(List<List<Integer>> deplacementsPossibles) {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Veuillez choisir un déplacement :");
 		int i = 0;
 		while(i < deplacementsPossibles.size()) {
-			System.out.println(i + " - " + deplacementsPossibles.get(i)[0] + ";" + deplacementsPossibles.get(i)[1] + " -> " + deplacementsPossibles.get(i)[2] + ";" + deplacementsPossibles.get(i)[3]);
+			System.out.println(i + " - " + deplacementsPossibles.get(i).get(0) + ";" + deplacementsPossibles.get(i).get(1) + " -> " + deplacementsPossibles.get(i).get(2) + ";" + deplacementsPossibles.get(i).get(3));
 			i++;
 		}
 
@@ -129,20 +130,22 @@ public class AffichageConsole implements Affichage {
 	public void afficherPlateau(Plateau plateau) {
 		String asciiPlateau = "";
 
-		Map<int[], Carte> disposition = plateau.getDisposition();
-		List<int[]> coordinates = new ArrayList<int[]>(disposition.keySet());
+		Map<List<Integer>, Carte> disposition = new HashMap<List<Integer>, Carte>(plateau.getDisposition());
+		List<List<Integer>> coordinates = new ArrayList<List<Integer>>(disposition.keySet());
 
-		Comparator<int[]> comparator = Comparator.comparing( (int[] x) -> x[0]).thenComparing(x -> x[1]);
+		Comparator<List<Integer>> comparator = Comparator.comparing( (List<Integer> x) -> x.get(0)).thenComparing(x -> x.get(1));
 		coordinates.sort(comparator);
 
-		int[] porteeX = plateau.getPorteeX();
-		int[] porteeY = plateau.getPorteeY();
+		List<Integer> porteeX = plateau.getPorteeX();
+		List<Integer> porteeY = plateau.getPorteeY();
 
-		for(int y = porteeY[0]; y <= porteeY[1]; y++) {
+		for(int y = porteeY.get(0); y <= porteeY.get(1); y++) {
 			asciiPlateau += y + " - ";
-			for(int x = porteeX[0]; x <= porteeX[1]; x++) {
+			for(int x = porteeX.get(0); x <= porteeX.get(1); x++) {
 
-				int[] coords = new int[] {x, y};
+				List<Integer> coords = new ArrayList<Integer>();
+				coords.add(x);
+				coords.add(y);
 				if(coordinates.contains(coords)) {
 					asciiPlateau +=  x + "." + disposition.get(coords) + " ";
 				}

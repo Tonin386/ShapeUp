@@ -10,7 +10,7 @@ public interface Affichage {
 	public Carte afficherCartePiochee(Carte c);
 	public int choisirAction();
 	public int demanderDeplacement();
-	public int[] choisirPositionCarte(List<int[]> positionnementsPossibles);
-	public int[] choisirDeplacementCarte(List<int[]> deplacementsPossibles);
+	public List<Integer> choisirPositionCarte(List<List<Integer>> positionnementsPossibles);
+	public List<Integer> choisirDeplacementCarte(List<List<Integer>> deplacementsPossibles);
 	public void afficherPlateau(Plateau plateau);
 }

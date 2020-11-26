@@ -68,6 +68,7 @@ public class Partie  {
 		this.affichage.debutTour(this.joueurs[this.tour]);
 		this.regleDuJeu.jouer(this);
 		this.tour = (this.tour + 1) % this.joueurs.length;
+		this.affichage.afficherPlateau(this.plateau);
 	}
 	
 	public Carte piocher() {
