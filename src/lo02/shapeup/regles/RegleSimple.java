@@ -20,6 +20,8 @@ public class RegleSimple implements Regle {
 		Plateau plateau = partie.getPlateau();
 
 		Carte c = partie.piocher();
+		int tour = partie.getTour();
+		partie.getJoueurs()[tour].piocher(c);
 
 		if(plateau.getCartesPosees() != 0) {
 			int action = partie.getAffichage().choisirAction();
@@ -30,6 +32,8 @@ public class RegleSimple implements Regle {
 			if(action == 0) {
 				List<Integer> position = partie.getAffichage().choisirPositionCarte(plateau.getPositionnementsPossibles());
 				plateau.poserCarte(position.get(0), position.get(1), c);
+				partie.getJoueurs()[tour].poserCarte(c);
+
 				aPoseCarte = true;
 			}
 			else if(action == 1 && plateau.getCartesPosees() > 1) {
@@ -41,7 +45,7 @@ public class RegleSimple implements Regle {
 			if(aDeplaceCarte == false && plateau.getCartesPosees() > 1) {
 				action = partie.getAffichage().demanderDeplacement();	
 
-				if(action == 0) {
+				if(action == 0 && plateau.getCartesPosees() + partie.getJoueurs().length != 17) {
 					List<Integer> deplacement = partie.getAffichage().choisirDeplacementCarte(plateau.getDeplacementsPossibles());
 					plateau.deplacerCarte(deplacement.get(0), deplacement.get(1), deplacement.get(2), deplacement.get(3));
 					aDeplaceCarte = true;
@@ -51,6 +55,8 @@ public class RegleSimple implements Regle {
 			if(aPoseCarte == false) {
 				List<Integer> position = partie.getAffichage().choisirPositionCarte(plateau.getPositionnementsPossibles());
 				plateau.poserCarte(position.get(0), position.get(1), c);
+				partie.getJoueurs()[tour].poserCarte(c);
+
 				aPoseCarte = true;
 			}
 		}

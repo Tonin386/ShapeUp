@@ -31,8 +31,8 @@ public class Banque {
 
 		for(int i = 0; i < 50; i++) {
 
-			int pos1 = (int)Math.random() * 18;
-			int pos2 = (int)Math.random() * 18;
+			int pos1 = (int) Math.round(Math.random() * 17);
+			int pos2 = (int) Math.round(Math.random() * 17);
 			Carte c = this.deck[pos1];
 
 			this.deck[pos1] = this.deck[pos2];

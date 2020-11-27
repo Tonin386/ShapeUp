@@ -1,7 +1,6 @@
 package lo02.shapeup.affichage;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +69,26 @@ public class AffichageConsole implements Affichage {
 	}
 
 	@Override
+	public Carte choisirCarteJeu(List<Carte> jeu) {
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Veuillez choisir une carte à jouer :");
+		this.afficherJeu(jeu);
+		int carte = scan.nextInt(); 
+
+		return jeu.get(carte);
+	}
+
+	@Override
+	public void afficherJeu(List<Carte> jeu) {
+		int i = 0;
+		while(i < jeu.size()) {
+			System.out.println(i + " - " + jeu.get(i));
+			i++;
+		}
+	}
+
+	@Override
 	public int choisirAction() {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
@@ -131,11 +150,6 @@ public class AffichageConsole implements Affichage {
 		String asciiPlateau = "";
 
 		Map<List<Integer>, Carte> disposition = new HashMap<List<Integer>, Carte>(plateau.getDisposition());
-		List<List<Integer>> coordinates = new ArrayList<List<Integer>>(disposition.keySet());
-
-		Comparator<List<Integer>> comparator = Comparator.comparing( (List<Integer> x) -> x.get(0)).thenComparing(x -> x.get(1));
-		coordinates.sort(comparator);
-
 		List<Integer> porteeX = plateau.getPorteeX();
 		List<Integer> porteeY = plateau.getPorteeY();
 
@@ -145,7 +159,7 @@ public class AffichageConsole implements Affichage {
 				List<Integer> coords = new ArrayList<Integer>();
 				coords.add(x);
 				coords.add(y);
-				if(coordinates.contains(coords)) {
+				if(disposition.get(coords) != null) {
 					asciiPlateau += "\t("+ x + ";" + y + ") " + disposition.get(coords);
 				}
 				else {

@@ -8,6 +8,8 @@ public interface Affichage {
 	public Joueur[] definirJoueurs(int modeDeJeu);
 	public void debutTour(Joueur j);
 	public Carte afficherCartePiochee(Carte c);
+	public void afficherJeu(List<Carte> jeu);
+	public Carte choisirCarteJeu(List<Carte> jeu);
 	public int choisirAction();
 	public int demanderDeplacement();
 	public List<Integer> choisirPositionCarte(List<List<Integer>> positionnementsPossibles);

@@ -34,6 +34,12 @@ public class MainApp {
 			}
 
 			System.out.println("Partie terminée !");
+
+			Score scorePartie = new Score(partie);
+			int[] scores = scorePartie.calculerScoresJoueurs();
+			for(int i = 0; i < scores.length; i++) {
+				System.out.println(partie.getJoueurs()[i] + " a " + scores[i] + " point(s).");
+			}
 		}
 		else {
 			scan.close();

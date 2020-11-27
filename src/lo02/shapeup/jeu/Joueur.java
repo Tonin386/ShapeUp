@@ -7,7 +7,6 @@ public abstract class Joueur {
 
 	protected String nom;
 	protected List<Carte> jeu;
-	protected List<Carte> cartesPosees;
 	protected Carte victorieuse;
 
 	public Joueur() {
@@ -19,7 +18,9 @@ public abstract class Joueur {
 		this.jeu = new ArrayList<Carte>();
 	}
 	
-	public abstract void jouer();
+	public void poserCarte(Carte c) {
+		this.jeu.remove(c);
+	}
 
 	public String getNom() {
 		return this.nom;
@@ -29,12 +30,8 @@ public abstract class Joueur {
 		this.nom = nom;
 	}
 
-	public boolean aPerdu() {
-		return false; //TODO
-	}
-
 	public Carte piocherVictorieuse(Carte c) {
-		this.victorieuse = this.piocher(c);
+		this.victorieuse = c;
 		return c;
 	}
 
@@ -46,5 +43,14 @@ public abstract class Joueur {
 	public String toString() {
 		return this.nom;
 	}
+
+	public List<Carte> getJeu() {
+		return this.jeu;
+	}
+	
+	public Carte getCarteVictorieuse() {
+		return this.victorieuse;
+	}
+	
 
 }

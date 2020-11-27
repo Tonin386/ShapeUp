@@ -64,4 +64,15 @@ public class Carte {
 		return "Carte " + this.forme + " " + this.couleur + " " + this.REMPLISSAGES[this.remplissage];
 	}
 
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null)
+			return false;
+		if (this.getClass() != o.getClass())
+			return false;
+		Carte carte = (Carte) o;
+		return this.forme.equals(carte.getForme()) && this.couleur.equals(carte.getCouleur()) && this.remplissage == carte.getRemplissage();
+	}
+
 }

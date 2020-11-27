@@ -16,6 +16,7 @@ public class Partie  {
 	private Joueur[] joueurs;
 	private Regle regleDuJeu;
 	private Affichage affichage;
+	private Carte carteCachee;
 	
 	public Partie() {
 		
@@ -40,8 +41,9 @@ public class Partie  {
 			break;
 		}
 		
-		
 		this.joueurs = this.affichage.definirJoueurs(modeDeJeu);
+		this.carteCachee = this.banque.piocher();
+		this.regleDuJeu.debutJeu(this);
 	}
 
 	public boolean estFinie() {
@@ -72,7 +74,7 @@ public class Partie  {
 	}
 	
 	public Carte piocher() {
-		return this.affichage.afficherCartePiochee(this.joueurs[tour].piocher(this.banque.piocher()));
+		return this.affichage.afficherCartePiochee(this.banque.piocher());
 	}
 	
 	public int getModeDeJeu() {
@@ -93,5 +95,9 @@ public class Partie  {
 	
 	public Affichage getAffichage() {
 		return this.affichage;
+	}
+	
+	public Carte getCarteCachee() {
+		return this.carteCachee;
 	}
 }
