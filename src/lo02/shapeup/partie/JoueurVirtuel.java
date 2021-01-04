@@ -1,4 +1,4 @@
-package lo02.shapeup.jeu;
+package lo02.shapeup.partie;
 
 public class JoueurVirtuel extends Joueur {
 

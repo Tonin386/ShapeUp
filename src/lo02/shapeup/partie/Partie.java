@@ -1,4 +1,5 @@
-package lo02.shapeup.jeu;
+package lo02.shapeup.partie;
+
 import lo02.shapeup.regles.*;
 import lo02.shapeup.affichage.*;
 
@@ -14,7 +15,7 @@ public class Partie  {
 	private Banque banque;
 	private Plateau plateau;
 	private Joueur[] joueurs;
-	private Regle regleDuJeu;
+	private RegleStrategy regleDuJeu;
 	private Affichage affichage;
 	private Carte carteCachee;
 	
@@ -33,11 +34,11 @@ public class Partie  {
 			default:
 			case 0:
 			case 1:
-			this.regleDuJeu = new RegleSimple();
+			this.regleDuJeu = new RegleSimpleStrategy();
 			break;
 			case 2:
 			case 3:
-			this.regleDuJeu = new RegleAvancee();
+			this.regleDuJeu = new RegleAvanceeStrategy();
 			break;
 		}
 		
@@ -99,5 +100,28 @@ public class Partie  {
 	
 	public Carte getCarteCachee() {
 		return this.carteCachee;
+	}
+	
+	public Banque getBanque() {
+		return this.banque;
+	}
+	
+	public void accept(PartieElementVisitor visitor) {
+		visitor.visitPartie(this);
+	}
+	
+	public PartieElement[] getElements() {
+		PartieElement[] elements =  new PartieElement[5];
+
+		elements[0] = this.getPlateau();
+		elements[1] = this.getCarteCachee();
+		int i = 0;
+		for(Joueur j : this.getJoueurs())
+		{
+			elements[2 + i] = j;
+			i++;
+		}
+		
+		return elements;
 	}
 }

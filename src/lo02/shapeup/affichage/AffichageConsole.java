@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import lo02.shapeup.jeu.*;
+import lo02.shapeup.partie.*;
 
 public class AffichageConsole implements Affichage {
 
@@ -74,7 +74,7 @@ public class AffichageConsole implements Affichage {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Veuillez choisir une carte à jouer :");
 		this.afficherJeu(jeu);
-		int carte = scan.nextInt(); 
+		int carte = 0; //scan.nextInt();
 
 		return jeu.get(carte);
 	}
@@ -96,7 +96,7 @@ public class AffichageConsole implements Affichage {
 		System.out.println("0 - Poser carte.");
 		System.out.println("1 - Déplacer carte.");
 
-		int action = scan.nextInt();
+		int action = 0; //scan.nextInt();
 
 		return action;
 	}
@@ -109,7 +109,7 @@ public class AffichageConsole implements Affichage {
 		System.out.println("0 - Oui.");
 		System.out.println("1 - Non.");
 
-		int action = scan.nextInt();
+		int action = 1;//scan.nextInt();
 
 		return action;
 	}
@@ -125,7 +125,7 @@ public class AffichageConsole implements Affichage {
 			i++;
 		}
 
-		int position = scan.nextInt(); 
+		int position = 0;//scan.nextInt(); 
 
 		return positionnementsPossibles.get(position);
 	}

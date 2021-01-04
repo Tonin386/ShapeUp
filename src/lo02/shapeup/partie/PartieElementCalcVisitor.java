@@ -1,45 +1,87 @@
-package lo02.shapeup.jeu;
+package lo02.shapeup.partie;
 
 import java.util.List;
 import java.util.ArrayList;
 
-public class Score {
 
-	private Partie partie;
+public class PartieElementCalcVisitor implements PartieElementVisitor {
+	
+	private Carte carteC;
+	private ArrayList<Joueur> joueurs;
+	private Plateau plateau;
+	private Banque banque;
 
-	public Score(Partie p) {
-		this.partie = p;
+	public PartieElementCalcVisitor() {
+		this.joueurs = new ArrayList<Joueur>();
+	}
+	
+	@Override
+	public void visit(Carte carte) {
+		this.carteC = carte;
+	}
+	
+
+	@Override
+	public void visit(Plateau plateau) {
+		this.plateau = plateau;
+	}
+	
+
+	@Override
+	public void visit(Joueur joueur) {
+		this.joueurs.add(joueur);
+	}
+	
+
+	@Override
+	public void visit(Banque banque) {
+		this.banque = banque;
 	}
 
-	public int[] calculerScoresJoueurs() {
-		int[] scores = new int[this.partie.getJoueurs().length];
-		int[] scoresFormes = this.calculerScoresFormes();
-		int[] scoresRemplissages = this.calculerScoresRemplissages();
-		int[] scoresCouleurs = this.calculerScoresCouleurs();
+	@Override
+	public ArrayList<Integer> visitPartie(Partie partie) {
 		
-		for(int i = 0; i < scores.length; i++) {
-			scores[i] = scoresFormes[i];
+		PartieElement[] elements = partie.getElements();
+		
+		for(PartieElement e : elements) {
+			if(e != null) e.accept(this);
+		}
+		
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		for(int i = 0; i < this.joueurs.size(); i++) {
+			scores.add(0);
+		}
+		
+		ArrayList<Integer> scoresFormes = this.calculerScoresFormes(partie);
+		ArrayList<Integer> scoresRemplissages = this.calculerScoresRemplissages(partie);
+		ArrayList<Integer> scoresCouleurs = this.calculerScoresCouleurs(partie);
+		
+		for(int i = 0; i < scores.size(); i++) {
+			scores.set(i, scoresFormes.get(i));
 		}
 
-		for(int i = 0; i < scores.length; i++) {
-			scores[i] += scoresRemplissages[i];
+		for(int i = 0; i < scores.size(); i++) {
+			scores.set(i, scores.get(i) + scoresRemplissages.get(i));
 		}
 		
-		for(int i = 0; i < scores.length; i++) {
-			scores[i] += scoresCouleurs[i];
+		for(int i = 0; i < scores.size(); i++) {
+			scores.set(i, scores.get(i) + scoresCouleurs.get(i));
 		}
 		
 		return scores;
 	}
 	
-	private int[] calculerScoresFormes() {
-		int[] scores = new int[this.partie.getJoueurs().length];
-		Plateau p = this.partie.getPlateau();
+	private ArrayList<Integer> calculerScoresFormes(Partie partie) {
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		for(int i = 0; i < this.joueurs.size(); i++) {
+			scores.add(0);
+		}
+		Plateau p = this.plateau;
 		
 		//calcul en horizontal
-		for(int i = 0; i < scores.length; i++) {
-			scores[i] = 0;
-			String forme = this.partie.getJoueurs()[i].getCarteVictorieuse().getForme();
+		for(int i = 0; i < scores.size(); i++) {
+			scores.set(i, 0);
+			String forme = this.joueurs.get(i).getCarteVictorieuse().getForme();
 
 			for(int j = p.getPorteeY().get(0); j <= p.getPorteeY().get(1); j++) {
 				int k = p.getPorteeX().get(0);
@@ -68,7 +110,7 @@ public class Score {
 					}
 
 					if(finirSerie && aLaSuite >= 2) {
-						scores[i] += aLaSuite - 1;
+						scores.set(i, scores.get(i) + aLaSuite - 1);
 					}
 
 					if(finirSerie) {
@@ -80,8 +122,8 @@ public class Score {
 		}
 
 		//calcul en vertical
-		for(int i = 0; i < scores.length; i++) {
-			String forme = this.partie.getJoueurs()[i].getCarteVictorieuse().getForme();
+		for(int i = 0; i < scores.size(); i++) {
+			String forme = this.joueurs.get(i).getCarteVictorieuse().getForme();
 
 			for(int j = p.getPorteeX().get(0); j <= p.getPorteeX().get(1); j++) {
 				int k = p.getPorteeY().get(0);
@@ -110,7 +152,7 @@ public class Score {
 					}
 
 					if(finirSerie && aLaSuite >= 2) {
-						scores[i] += aLaSuite - 1;
+						scores.set(i, scores.get(i) + aLaSuite - 1);
 					}
 
 					if(finirSerie) {
@@ -125,14 +167,17 @@ public class Score {
 		return scores;
 	}
 	
-	private int[] calculerScoresRemplissages() {
-		int[] scores = new int[this.partie.getJoueurs().length];
-		Plateau p = this.partie.getPlateau();
+	private ArrayList<Integer> calculerScoresRemplissages(Partie partie) {
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		for(int i = 0; i < this.joueurs.size(); i++) {
+			scores.add(0);
+		}
+		Plateau p = this.plateau;
 		
 		//calcul en horizontal
-		for(int i = 0; i < scores.length; i++) {
-			scores[i] = 0;
-			int remplissage = this.partie.getJoueurs()[i].getCarteVictorieuse().getRemplissage();
+		for(int i = 0; i < scores.size(); i++) {
+			scores.set(i, 0);
+			int remplissage = this.joueurs.get(i).getCarteVictorieuse().getRemplissage();
 
 			for(int j = p.getPorteeY().get(0); j <= p.getPorteeY().get(1); j++) {
 				int k = p.getPorteeX().get(0);
@@ -161,7 +206,7 @@ public class Score {
 					}
 
 					if(finirSerie && aLaSuite >= 3) {
-						scores[i] += aLaSuite;
+						scores.set(i, scores.get(i) + aLaSuite);
 					}
 
 					if(finirSerie) {
@@ -173,8 +218,8 @@ public class Score {
 		}
 
 		//calcul en vertical
-		for(int i = 0; i < scores.length; i++) {
-			int remplissage = this.partie.getJoueurs()[i].getCarteVictorieuse().getRemplissage();
+		for(int i = 0; i < scores.size(); i++) {
+			int remplissage = this.joueurs.get(i).getCarteVictorieuse().getRemplissage();
 
 			for(int j = p.getPorteeX().get(0); j <= p.getPorteeX().get(1); j++) {
 				int k = p.getPorteeY().get(0);
@@ -203,7 +248,7 @@ public class Score {
 					}
 
 					if(finirSerie && aLaSuite >= 3) {
-						scores[i] += aLaSuite;
+						scores.set(i, scores.get(i) + aLaSuite);
 					}
 
 					if(finirSerie) {
@@ -217,14 +262,17 @@ public class Score {
 		return scores;
 	}
 	
-	private int[] calculerScoresCouleurs() {
-		int[] scores = new int[this.partie.getJoueurs().length];
-		Plateau p = this.partie.getPlateau();
+	private ArrayList<Integer> calculerScoresCouleurs(Partie partie) {
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		for(int i = 0; i < this.joueurs.size(); i++) {
+			scores.add(0);
+		}
+		Plateau p = this.plateau;
 		
 		//calcul en horizontal
-		for(int i = 0; i < scores.length; i++) {
-			scores[i] = 0;
-			String couleur = this.partie.getJoueurs()[i].getCarteVictorieuse().getCouleur();
+		for(int i = 0; i < scores.size(); i++) {
+			scores.set(i, 0);
+			String couleur = this.joueurs.get(i).getCarteVictorieuse().getCouleur();
 
 			for(int j = p.getPorteeY().get(0); j <= p.getPorteeY().get(1); j++) {
 				int k = p.getPorteeX().get(0);
@@ -253,7 +301,7 @@ public class Score {
 					}
 
 					if(finirSerie && aLaSuite >= 3) {
-						scores[i] += aLaSuite + 1;
+						scores.set(i, scores.get(i) + aLaSuite + 1);
 					}
 
 					if(finirSerie) {
@@ -265,8 +313,8 @@ public class Score {
 		}
 
 		//calcul en vertical
-		for(int i = 0; i < scores.length; i++) {
-			String couleur = this.partie.getJoueurs()[i].getCarteVictorieuse().getCouleur();
+		for(int i = 0; i < scores.size(); i++) {
+			String couleur = this.joueurs.get(i).getCarteVictorieuse().getCouleur();
 
 			for(int j = p.getPorteeX().get(0); j <= p.getPorteeX().get(1); j++) {
 				int k = p.getPorteeY().get(0);
@@ -295,7 +343,7 @@ public class Score {
 					}
 
 					if(finirSerie && aLaSuite >= 3) {
-						scores[i] += aLaSuite + 1;
+						scores.set(i, scores.get(i) + aLaSuite + 1);
 					}
 
 					if(finirSerie) {

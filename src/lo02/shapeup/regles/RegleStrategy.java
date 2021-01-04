@@ -1,7 +1,9 @@
 package lo02.shapeup.regles;
-import lo02.shapeup.jeu.*;
+import lo02.shapeup.partie.Partie;
 
-public interface Regle {
+//Strategy
+
+public interface RegleStrategy {
 	public void debutJeu(Partie partie);
 	public void jouer(Partie partie);
 }

@@ -1,9 +1,11 @@
-package lo02.shapeup.jeu;
+package lo02.shapeup.partie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Joueur {
+//attribut interface Strategy -> joueur virtuel débutant, avancé et joueur réel
+
+public abstract class Joueur implements PartieElement {
 
 	protected String nom;
 	protected List<Carte> jeu;
@@ -16,6 +18,10 @@ public abstract class Joueur {
 	public Joueur(String nom) {
 		this.nom = nom;
 		this.jeu = new ArrayList<Carte>();
+	}
+	
+	public void accept(PartieElementVisitor visitor) {
+		visitor.visit(this);
 	}
 	
 	public void poserCarte(Carte c) {

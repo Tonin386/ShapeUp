@@ -1,4 +1,4 @@
-package lo02.shapeup.jeu;
+package lo02.shapeup.partie;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.List;
 import java.lang.Math;
 
-public class Plateau {
+public class Plateau implements PartieElement {
 
 	private Map<List<Integer>, Carte> disposition;
 	private int cartesPosees;
@@ -24,6 +24,10 @@ public class Plateau {
 		this.porteeY.add(0);
 	}
 
+	public void accept(PartieElementVisitor visitor) {
+		visitor.visit(this);
+	}
+	
 	public void poserCarte(int x, int y, Carte c) {
 		List<Integer> position = new ArrayList<Integer>();
 		position.add(x);
@@ -330,7 +334,6 @@ public class Plateau {
 				}
 			}
 			else if(nombreColonnes > 3) {
-				System.out.println("Colonnes : " + nombreColonnes);
 				for(List<Integer> coords : positionsOccupees) {
 					List<Integer> audessus = new ArrayList<Integer>();
 					audessus.add(coords.get(0));
@@ -362,7 +365,6 @@ public class Plateau {
 				}
 			}
 			else {
-				System.out.println("Rangees : " + nombreRangees);
 				for(List<Integer> coords : positionsOccupees) {
 					List<Integer> audessus = new ArrayList<Integer>();
 					audessus.add(coords.get(0));

@@ -1,7 +1,9 @@
 package lo02.shapeup.affichage;
 import java.util.List;
 
-import lo02.shapeup.jeu.*;
+import lo02.shapeup.partie.Carte;
+import lo02.shapeup.partie.Joueur;
+import lo02.shapeup.partie.Plateau;
 
 public interface Affichage {
 	

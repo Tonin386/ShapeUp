@@ -1,7 +1,9 @@
 package lo02.shapeup.jeu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import lo02.shapeup.affichage.*;
+import lo02.shapeup.partie.*;
 
 public class MainApp {
 
@@ -35,10 +37,10 @@ public class MainApp {
 
 			System.out.println("Partie terminée !");
 
-			Score scorePartie = new Score(partie);
-			int[] scores = scorePartie.calculerScoresJoueurs();
-			for(int i = 0; i < scores.length; i++) {
-				System.out.println(partie.getJoueurs()[i] + " a " + scores[i] + " point(s).");
+			PartieElementVisitor scorePartie = new PartieElementCalcVisitor();
+			ArrayList<Integer> scores = scorePartie.visitPartie(partie);
+			for(int i = 0; i < scores.size(); i++) {
+				System.out.println(partie.getJoueurs()[i] + " a " + scores.get(i) + " point(s).");
 			}
 		}
 		else {

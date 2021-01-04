@@ -1,9 +1,9 @@
 package lo02.shapeup.regles;
-import lo02.shapeup.jeu.*;
+import lo02.shapeup.partie.*;
 
 import java.util.List;
 
-public class RegleAvancee implements Regle {
+public class RegleAvanceeStrategy implements RegleStrategy {
 
 	@Override
 	public void debutJeu(Partie partie) {
@@ -66,11 +66,15 @@ public class RegleAvancee implements Regle {
 			c = partie.getAffichage().choisirCarteJeu(partie.getJoueurs()[tour].getJeu());
 			plateau.poserCarte(0, 0, c);
 		}
+		
 
-		if(plateau.getCartesPosees() + partie.getJoueurs().length != 17) {
+		if(plateau.getCartesPosees() + partie.getJoueurs().length == 17 && partie.getBanque().getIndex() < 1) {
 			for(Joueur j : partie.getJoueurs()) {
 				j.piocherVictorieuse(j.getJeu().get(0));
 			}
+		}
+		else if(partie.getBanque().getIndex() < 1) {
+			//Ne rien faire car il n'y a plus de cartes à piocher.
 		}
 		else {
 			c = partie.piocher();

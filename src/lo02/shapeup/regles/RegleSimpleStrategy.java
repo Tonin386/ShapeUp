@@ -2,9 +2,9 @@ package lo02.shapeup.regles;
 
 import java.util.List;
 
-import lo02.shapeup.jeu.*;
+import lo02.shapeup.partie.*;
 
-public class RegleSimple implements Regle {
+public class RegleSimpleStrategy implements RegleStrategy {
 
 	@Override
 	public void debutJeu(Partie partie) {

@@ -1,6 +1,6 @@
-package lo02.shapeup.jeu;
+package lo02.shapeup.partie;
 
-public class Banque {
+public class Banque implements PartieElement {
 
 	private Carte[] deck;
 	private int index;
@@ -21,10 +21,18 @@ public class Banque {
 
 		this.melanger();
 	}
+	
+	public void accept(PartieElementVisitor visitor) {
+		visitor.visit(this);
+	}
 
 	public Carte piocher() {
 		this.index--;
 		return this.deck[index];
+	}
+	
+	public int getIndex() {
+		return this.index;
 	}
 	
 	private void melanger() {

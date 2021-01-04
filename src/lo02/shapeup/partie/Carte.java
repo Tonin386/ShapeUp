@@ -1,6 +1,6 @@
-package lo02.shapeup.jeu;
+package lo02.shapeup.partie;
 
-public class Carte {
+public class Carte implements PartieElement {
 	
 	public final static int ROUGE = 0;
 	public final static int VERT = 1;
@@ -45,6 +45,10 @@ public class Carte {
 		else {
 			this.remplissage = 0;
 		}
+	}
+	
+	public void accept(PartieElementVisitor visitor) {
+		visitor.visit(this);
 	}
 
 	public String getCouleur() {
