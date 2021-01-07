@@ -3,10 +3,12 @@ package lo02.shapeup.partie;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Observable;
 import java.util.List;
 import java.lang.Math;
 
-public class Plateau implements PartieElement {
+@SuppressWarnings("deprecation")
+public class Plateau extends Observable implements PartieElement {
 
 	private Map<List<Integer>, Carte> disposition;
 	private int cartesPosees;
@@ -48,6 +50,8 @@ public class Plateau implements PartieElement {
 
 		this.disposition.put(position, c);
 		this.cartesPosees++;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void deplacerCarte(int xOrigine, int yOrigine, int xArrivee, int yArrivee) {
@@ -80,6 +84,8 @@ public class Plateau implements PartieElement {
 				this.porteeY.set(1, c.get(1));
 			}
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	public List<List<Integer>> getDeplacementsPossibles() {
@@ -408,11 +414,27 @@ public class Plateau implements PartieElement {
 		return this.porteeY;
 	}
 
+	public Carte getCartePosee(int x, int y) {
+		List<Integer> position = new ArrayList<Integer>();
+		position.add(x);
+		position.add(y);
+		return this.disposition.get(position);
+	}
+
 	public Map<List<Integer>, Carte> getDisposition() {
 		return this.disposition;
 	}
 
+	public void setDisposition(Map<List<Integer>, Carte> d) {
+		this.disposition = d;
+	}
+
 	public int getCartesPosees() {
 		return this.cartesPosees;
+	}
+
+	public Map<List<Integer>, Carte> copyPlateau() {
+		Map<List<Integer>, Carte> copy = new HashMap<List<Integer>, Carte>(this.disposition);
+		return copy;
 	}
 }

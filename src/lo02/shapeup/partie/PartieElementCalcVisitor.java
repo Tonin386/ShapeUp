@@ -6,46 +6,25 @@ import java.util.ArrayList;
 
 public class PartieElementCalcVisitor implements PartieElementVisitor {
 	
-	private Carte carteC;
-	private ArrayList<Joueur> joueurs;
+	private ArrayList<JoueurStrategy> joueurs;
 	private Plateau plateau;
-	private Banque banque;
 
 	public PartieElementCalcVisitor() {
-		this.joueurs = new ArrayList<Joueur>();
+		this.joueurs = new ArrayList<JoueurStrategy>();
 	}
 	
-	@Override
-	public void visit(Carte carte) {
-		this.carteC = carte;
-	}
-	
-
 	@Override
 	public void visit(Plateau plateau) {
 		this.plateau = plateau;
 	}
-	
 
 	@Override
-	public void visit(Joueur joueur) {
+	public void visit(JoueurStrategy joueur) {
 		this.joueurs.add(joueur);
 	}
 	
-
-	@Override
-	public void visit(Banque banque) {
-		this.banque = banque;
-	}
-
 	@Override
 	public ArrayList<Integer> visitPartie(Partie partie) {
-		
-		PartieElement[] elements = partie.getElements();
-		
-		for(PartieElement e : elements) {
-			if(e != null) e.accept(this);
-		}
 		
 		ArrayList<Integer> scores = new ArrayList<Integer>();
 		for(int i = 0; i < this.joueurs.size(); i++) {

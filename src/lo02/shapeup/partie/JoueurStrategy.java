@@ -5,17 +5,17 @@ import java.util.List;
 
 //attribut interface Strategy -> joueur virtuel débutant, avancé et joueur réel
 
-public abstract class Joueur implements PartieElement {
+public abstract class JoueurStrategy implements PartieElement {
 
 	protected String nom;
 	protected List<Carte> jeu;
 	protected Carte victorieuse;
 
-	public Joueur() {
+	public JoueurStrategy() {
 		this.jeu = new ArrayList<Carte>();
 	}
 	
-	public Joueur(String nom) {
+	public JoueurStrategy(String nom) {
 		this.nom = nom;
 		this.jeu = new ArrayList<Carte>();
 	}
@@ -23,6 +23,8 @@ public abstract class Joueur implements PartieElement {
 	public void accept(PartieElementVisitor visitor) {
 		visitor.visit(this);
 	}
+	
+	public abstract void jouer(Partie partie);
 	
 	public void poserCarte(Carte c) {
 		this.jeu.remove(c);
@@ -57,6 +59,4 @@ public abstract class Joueur implements PartieElement {
 	public Carte getCarteVictorieuse() {
 		return this.victorieuse;
 	}
-	
-
 }
