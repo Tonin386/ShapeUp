@@ -33,11 +33,27 @@ import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
 
+/**
+ *	La classe AffichageGraphique permet de contrôler la partie à travers une interface graphique, en même temps que l'interface console. Elle implémente l'interface Observer.
+ *	Cette classe est une vue dans l'architecture MVC.
+ *	Elle est donc notifiée de tout changement de la partie.
+ * 	
+ * @author MATHUBERT Antonin et TOUKO KOUEDJOU Vanelle Tatiana
+ * @version 1.0
+ */
 @SuppressWarnings("deprecation")
 public class AffichageGraphique implements Observer {
 	
+	/**
+	 * Spécifie la partie contrôler à travers l'interface graphique.
+	 */
 	private Partie partie;
 	
+	/**
+	 * A chaque fois que l'interface est notifiée d'un changement dans la partie, elle décide quelle vue afficher.
+	 * @param o l'objet observé
+	 * @param arg argument supplémentaire
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 
@@ -60,8 +76,16 @@ public class AffichageGraphique implements Observer {
 		frame.repaint();
 	}
 	
+	/**
+	 * L'élement principal de notre fenêtre.
+	 */
 	private JFrame frame;
 	
+	/**
+	 * La méthode principale du programme.
+	 * Elle permet l'exécution en plusieurs threads.
+	 * @param args les arguments d'exécution du programme
+	 */
 	public static void main(String[] args) {
 		
 		Partie partie = new Partie();
@@ -81,6 +105,10 @@ public class AffichageGraphique implements Observer {
 		AffichageConsole console = new AffichageConsole(partie);
 	}
 
+	/**
+	 * Instancie un nouvel AffichageGraphique pour une partie.
+	 * @param partie la partie à afficher
+	 */
 	public AffichageGraphique(Partie partie) {
 		
 		this.partie = partie;
@@ -92,10 +120,16 @@ public class AffichageGraphique implements Observer {
 		initialize();
 	}
 	
+	/**
+	 * La vue par défaut de la fenêtre.
+	 */
 	private void initialize() {
 		vueRegles();
 	}
 
+	/**
+	 * Vue qui permet à l'utilisateur de choisir les règles de la partie.
+	 */
 	private void vueRegles() {
 		frame.setBounds(100, 100, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -130,6 +164,9 @@ public class AffichageGraphique implements Observer {
 		frame.getContentPane().add(bValider);
 	}
 
+	/**
+	 * Vue qui permet à l'utilisateur de définir les joueurs de la partie.
+	 */
 	private void vueJoueurs() {
 		frame.setBounds(100, 100, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -193,6 +230,9 @@ public class AffichageGraphique implements Observer {
 		cJoueurs.activate();
 	}
 
+	/**
+	 * Vue principale de la partie avec l'affichage du plateau et du jeu des joueurs, ainsi que de leur carte victorieuse et des actions possibles.
+	 */
 	private void vuePartie() {
 		frame.setBounds(100, 100, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -244,7 +284,7 @@ public class AffichageGraphique implements Observer {
 
 		ButtonGroup buttonGroup_1 = new ButtonGroup();
 		
-		//de 2 Ã  18
+		//de 2 à 18
 
 		Map<List<Integer>, Carte> plateau = this.partie.getPlateau().getDisposition();
 
@@ -348,6 +388,9 @@ public class AffichageGraphique implements Observer {
 		ControleurPartie cPartie = new ControleurPartie(this.partie, bPoser, bDeplacer, bFinTour, rbCarte1, rbCarte2, rbCarte3, cbPoser, cbDeplacer);
 	}
 
+	/**
+	 * Vue finale de la partie où les joueurs voient leurs scores affichés.
+	 */
 	private void vueScore() {
 		frame.setBounds(100, 100, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -414,7 +457,7 @@ public class AffichageGraphique implements Observer {
 			j.accept(scoresVisit);
 		}
 		this.partie.getPlateau().accept(scoresVisit);
-		List<Integer> scores = scoresVisit.visitPartie(this.partie);
+		List<Integer> scores = scoresVisit.obtenirScoresPartie();
 		
 		JLabel lblNewLabel = new JLabel("Score Joueur 1 : " + scores.get(0));
 		frame.getContentPane().add(lblNewLabel, "2, 22, 3, 1");

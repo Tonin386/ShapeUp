@@ -1,10 +1,29 @@
 package lo02.shapeup.partie;
 
+/**
+*	La classe Banque représente la pile de cartes à piocher de la partie.
+*	Elle permet le mélange des cartes ainsi que leur pioche tout au long de la partie.
+*
+*	@author MATHUBERT Antonin et TOUKO KOUEDJOU Vanelle Tatiana
+*	@version 1.0
+*	@see lo02.shapeup.partie.Carte
+*/
 public class Banque {
 
+	/**
+	 * Représente toutes les cartes de la partie.
+	 */
 	private Carte[] deck;
+
+	/**
+	 * Permet de suivre la prochaine carte à piocher.
+	 */
 	private int index;
 
+	/**
+	 * Instancie une nouvelle Banque.
+	 * Crée tous les objets de type Carte disponibles dans la partie, puis les mélange aléatoirement afin d'obtenir un paquet mélangé, et donc un tirage aléatoire.
+	 */
 	public Banque() {
 
 		this.deck = new Carte[18];
@@ -22,15 +41,26 @@ public class Banque {
 		this.melanger();
 	}
 
+	/**
+	 * Effectue l'action de piocher une carte.
+	 * @return la carte piochée.
+	 */
 	public Carte piocher() {
 		this.index--;
 		return this.deck[index];
 	}
 	
+	/**
+	 * Permet d'obtenir la position de la pioche de la banque.
+	 * @return l'index actuel de la carte à piocher.
+	 */
 	public int getIndex() {
 		return this.index;
 	}
 	
+	/**
+	 * Permet le mélange des cartes à la création de la banque.
+	 */
 	private void melanger() {
 
 		for(int i = 0; i < 50; i++) {

@@ -3,37 +3,65 @@ package lo02.shapeup.partie;
 import java.util.List;
 import java.util.ArrayList;
 
-
+/**
+*	La classe PartieElementCalcVisitor implémente l'interface PartieElementVisitor et permet de réaliser un calcul des scores sur une partie.
+*
+*	@author MATHUBERT Antonin et TOUKO KOUEDJOU Vanelle Tatiana
+*	@version 1.0
+*	@see lo02.shapeup.partie.PartieElementVisitor
+*/
 public class PartieElementCalcVisitor implements PartieElementVisitor {
 	
+	/**
+	 * Contient la liste des joueurs de la partie.
+	 */
 	private ArrayList<JoueurStrategy> joueurs;
+
+	/**
+	 * Contient le plateau de la partie.
+	 */
 	private Plateau plateau;
 
+	/**
+	 * Instancie un nouveau PartieElementCalcVisitor.
+	 */
 	public PartieElementCalcVisitor() {
 		this.joueurs = new ArrayList<JoueurStrategy>();
 	}
 	
+	/**
+	 * Visite le plateau spécifié.
+	 * @param plateau le plateau à visiter.
+	 */
 	@Override
 	public void visit(Plateau plateau) {
 		this.plateau = plateau;
 	}
 
+	/**
+	 * Visite le joueur spécifié et l'ajoute à la liste des joueurs.
+	 * @param joueur le joueur à visiter
+	 */
 	@Override
 	public void visit(JoueurStrategy joueur) {
 		this.joueurs.add(joueur);
 	}
 	
+	/**
+	 * Permet le calcul des scores d'une partie en fonction des éléments précedemment visités.
+	 * @return une liste de taille égale au nombre de joueurs dans la partie, contenant le score de chaque joueur
+	 */
 	@Override
-	public ArrayList<Integer> visitPartie(Partie partie) {
+	public ArrayList<Integer> obtenirScoresPartie() {
 		
 		ArrayList<Integer> scores = new ArrayList<Integer>();
 		for(int i = 0; i < this.joueurs.size(); i++) {
 			scores.add(0);
 		}
 		
-		ArrayList<Integer> scoresFormes = this.calculerScoresFormes(partie);
-		ArrayList<Integer> scoresRemplissages = this.calculerScoresRemplissages(partie);
-		ArrayList<Integer> scoresCouleurs = this.calculerScoresCouleurs(partie);
+		ArrayList<Integer> scoresFormes = this.calculerScoresFormes();
+		ArrayList<Integer> scoresRemplissages = this.calculerScoresRemplissages();
+		ArrayList<Integer> scoresCouleurs = this.calculerScoresCouleurs();
 		
 		for(int i = 0; i < scores.size(); i++) {
 			scores.set(i, scoresFormes.get(i));
@@ -50,7 +78,11 @@ public class PartieElementCalcVisitor implements PartieElementVisitor {
 		return scores;
 	}
 	
-	private ArrayList<Integer> calculerScoresFormes(Partie partie) {
+	/**
+	 * Calcule les points obtenus grâce à la disposition des cartes selon leur forme
+	 * @return une liste des points obtenus pour chaque joueur
+	 */
+	private ArrayList<Integer> calculerScoresFormes() {
 		ArrayList<Integer> scores = new ArrayList<Integer>();
 		for(int i = 0; i < this.joueurs.size(); i++) {
 			scores.add(0);
@@ -146,7 +178,12 @@ public class PartieElementCalcVisitor implements PartieElementVisitor {
 		return scores;
 	}
 	
-	private ArrayList<Integer> calculerScoresRemplissages(Partie partie) {
+
+	/**
+	 * Calcule les points obtenus grâce à la disposition des cartes selon leur remplissage
+	 * @return une liste des points obtenus pour chaque joueur
+	 */
+	private ArrayList<Integer> calculerScoresRemplissages() {
 		ArrayList<Integer> scores = new ArrayList<Integer>();
 		for(int i = 0; i < this.joueurs.size(); i++) {
 			scores.add(0);
@@ -241,7 +278,11 @@ public class PartieElementCalcVisitor implements PartieElementVisitor {
 		return scores;
 	}
 	
-	private ArrayList<Integer> calculerScoresCouleurs(Partie partie) {
+	/**
+	 * Calcule les points obtenus grâce à la disposition des cartes selon leur couleur
+	 * @return une liste des points obtenus pour chaque joueur
+	 */
+	private ArrayList<Integer> calculerScoresCouleurs() {
 		ArrayList<Integer> scores = new ArrayList<Integer>();
 		for(int i = 0; i < this.joueurs.size(); i++) {
 			scores.add(0);

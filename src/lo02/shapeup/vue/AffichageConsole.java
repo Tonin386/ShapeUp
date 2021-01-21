@@ -7,29 +7,93 @@ import java.util.List;
 
 import lo02.shapeup.partie.*;
 
+/**
+ *	La classe AffichageConsole permet de contrôler la partie à travers une interface textuelle, en parallèle de l'interface graphique. Elle implémente l'interface Runnable.
+ *	Cette classe est une vue dans l'architecture MVC.
+ * 	
+ * @author MATHUBERT Antonin et TOUKO KOUEDJOU Vanelle Tatiana
+ * @version 1.0
+ */
 public class AffichageConsole implements Runnable {
 
+	/**
+	 * Définit la commande correspondant au commencement de la partie.
+	 */
 	public static String COMMENCER_PARTIE = "start";
+
+	/**
+	 * Définit la commande correspondant au choix des règles de la partie.
+	 */
 	public static String CHOISIR_REGLES = "R";
+
+	/**
+	 * Définit la commande correspondant au choix des joueurs de la partie.
+	 */
 	public static String DEFINIR_JOUEURS = "J";
+
+	/**
+	 * Définit la commande correspondant au déplacement d'une carte.
+	 */
 	public static String DEPLACER = "D";
+
+	/**
+	 * Définit la commande correspondant au choix d'une carte.
+	 */
 	public static String CHOISIR_CARTE = "C";
+
+	/**
+	 * Définit la commande correspondant à la pose d'une carte.
+	 */
 	public static String POSER = "P";
+
+	/**
+	 * Définit la commande correspondant à la fin d'un tour.
+	 */
 	public static String FINIR_TOUR = "F";
+
+	/**
+	 * Définit la commande correspondant à l'arrêt de l'exécution du programme.
+	 */
 	public static String QUITTER = "quit";
+
+	/**
+	 * Définit un caractère pour montrer que l'on attend une entrée utilisateur.
+	 */
 	public static String PROMPT = ">";
 	
+	/**
+	 * Spécifie la partie contrôlée à travers l'interface console.
+	 */
 	private Partie partie;
+
+	/**
+	 * Spécifie si le joueur doit choisir son déplacement dans la console.
+	 */
 	private boolean choisirDeplacement = false;
+
+	/**
+	 * Spécifie si le joueur doit choisir sa position dans la console.
+	 */
 	private boolean choisirPosition = false;
+
+	/**
+	 * Spécifie si le joueur doit choisir l'index de la carte de son jeu choisie dans la console.
+	 */
 	private boolean choisirIndex = false;
 
+	/**
+	 * Instancie un nouvel AffichageConsole pour une partie.
+	 * @param partie la partie jouable à travers la console.
+	 */
 	public AffichageConsole(Partie partie) {
 		this.partie = partie;
 		Thread t = new Thread(this);
 		t.start();
 	}
 
+	/**
+	 * Permet le contrôle entier de la partie dans la console en parallèle de la vue graphique.
+	 */
 	@Override
 	public void run() {
 
@@ -221,6 +285,10 @@ public class AffichageConsole implements Runnable {
 		System.exit(0);
 	}
 	
+	/**
+	 * Permet de lire une entrée utilisateur dans la console.
+	 * @return la chaîne lue
+	 */
 	private String lireChaine() {
 		BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
 		String resultat = null;

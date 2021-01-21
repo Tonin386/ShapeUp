@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"lo02.shapeup.controleur"},{"l":"lo02.shapeup.partie"},{"l":"lo02.shapeup.regles"},{"l":"lo02.shapeup.vue"}]

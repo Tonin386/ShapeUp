@@ -7,14 +7,40 @@ import java.util.Observable;
 import java.util.List;
 import java.lang.Math;
 
+/**
+ *	La classe Plateau représente le plateau de la partie. Cette classe hérite de la classe Observable, et implémente l'interface PartieElement.
+ *	Elle est donc observable et visitable.
+ * 
+ * @author MATHUBERT Antonin et TOUKO KOUEDJOU Vanelle Tatiana
+ * @version 1.0
+ * @see lo02.shapeup.partie.PartieElement
+ */
 @SuppressWarnings("deprecation")
 public class Plateau extends Observable implements PartieElement {
 
+	/**
+	 * Représente la dispotion des cartes sur le plateau. A chaque position est associée une carte.
+	 */
 	private Map<List<Integer>, Carte> disposition;
+
+	/**
+	 * Contient le nombre de cartes posées sur le plateau.
+	 */
 	private int cartesPosees;
+
+	/**
+	 * Contient les abscisses minimum et maximum des cartes posées sur le plateau.
+	 */
 	private List<Integer> porteeX;
+
+	/**
+	 * Contient les ordonnées minimum et maximum des cartes posées sur le plateau.
+	 */
 	private List<Integer> porteeY;
 
+	/**
+	 * Instancie un nouveau Plateau.
+	 */
 	public Plateau() {
 		this.disposition = new HashMap<List<Integer>, Carte>();
 		this.cartesPosees = 0;
@@ -26,10 +52,20 @@ public class Plateau extends Observable implements PartieElement {
 		this.porteeY.add(0);
 	}
 
+	/**
+	 * Accepte un PartieElementVisitor comme visiteur.
+	 * @param visitor le visiteur à accepter
+	 */
 	public void accept(PartieElementVisitor visitor) {
 		visitor.visit(this);
 	}
 	
+	/**
+	 * Permet d'ajouter une carte sur le plateau à une certaine position.
+	 * @param x l'abscisse de la position de la carte
+	 * @param y l'ordonnée de la position de la carte
+	 * @param c la carte à poser
+	 */
 	public void poserCarte(int x, int y, Carte c) {
 		List<Integer> position = new ArrayList<Integer>();
 		position.add(x);
@@ -54,6 +90,13 @@ public class Plateau extends Observable implements PartieElement {
 		this.notifyObservers();
 	}
 
+	/**
+	 * Permet de déplacer une carte sur le plateau vers un nouvel emplacement.
+	 * @param xOrigine l'abscisse d'origine de la carte à deplacer
+	 * @param yOrigine l'ordonnée d'origine de la carte à déplacer
+	 * @param xArrivee la nouvelle abscisse de la carte à deplacer
+	 * @param yArrivee la nouvelle ordonnée de la carte à déplacer
+	 */
 	public void deplacerCarte(int xOrigine, int yOrigine, int xArrivee, int yArrivee) {
 		List<Integer> positionOrigine = new ArrayList<Integer>();
 		positionOrigine.add(xOrigine);
@@ -88,6 +131,10 @@ public class Plateau extends Observable implements PartieElement {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Permet d'obtenir une liste de tous les déplacements possibles.
+	 * @return une liste de tous les déplacements possibles
+	 */
 	public List<List<Integer>> getDeplacementsPossibles() {
 		List<List<Integer>> deplacementsPossibles = new ArrayList<List<Integer>>();
 
@@ -290,6 +337,10 @@ public class Plateau extends Observable implements PartieElement {
 		return deplacementsPossibles;
 	}
 	
+	/**
+	 * Permet d'obtenir une liste de tous les positionnements possibles.
+	 * @return une liste de tous les positionnements possibles
+	 */
 	public List<List<Integer>> getPositionnementsPossibles() {
 		List<List<Integer>> positionnementsPossibles = new ArrayList<List<Integer>>();
 
@@ -406,14 +457,28 @@ public class Plateau extends Observable implements PartieElement {
 		return positionnementsPossibles;
 	}
 	
+	/**
+	 * Permet d'obtenir les abscisses minimum et maximum des cartes posées sur le plateau.
+	 * @return une liste contenant les abscisses minimum et maximum des cartes posées
+	 */
 	public List<Integer> getPorteeX() {
 		return this.porteeX;
 	}
 
+	/**
+	 * Permet d'obtenir les ordonnées minimum et maximum des cartes posées sur le plateau.
+	 * @return une liste contenant les ordonnées minimum et maximum des cartes posées
+	 */
 	public List<Integer> getPorteeY() {
 		return this.porteeY;
 	}
 
+	/**
+	 * Permet d'obtenir une carte posée à une certaine position sur le plateau.
+	 * @param x l'abscisse de la carte à récupérer
+	 * @param y l'ordonnée de la carte à récupérer
+	 * @return la carte récupérée
+	 */
 	public Carte getCartePosee(int x, int y) {
 		List<Integer> position = new ArrayList<Integer>();
 		position.add(x);
@@ -421,20 +486,27 @@ public class Plateau extends Observable implements PartieElement {
 		return this.disposition.get(position);
 	}
 
+	/**
+	 * Permet d'obtenir la map des cartes posées selon leur position.
+	 * @return la map des cartes posées selon leur position
+	 */
 	public Map<List<Integer>, Carte> getDisposition() {
 		return this.disposition;
 	}
 
+	/**
+	 * Permet de définir une disposition des cartes sur le plateau.
+	 * @param d la nouvelle disposition
+	 */
 	public void setDisposition(Map<List<Integer>, Carte> d) {
 		this.disposition = d;
 	}
 
+	/**
+	 * Permet de récupérer le nombre de cartes posées sur le plateau.
+	 * @return le nombre de cartes posées
+	 */
 	public int getCartesPosees() {
 		return this.cartesPosees;
-	}
-
-	public Map<List<Integer>, Carte> copyPlateau() {
-		Map<List<Integer>, Carte> copy = new HashMap<List<Integer>, Carte>(this.disposition);
-		return copy;
 	}
 }

@@ -1,19 +1,37 @@
 package lo02.shapeup.partie;
 
 import java.util.List;
-import java.util.ListIterator;
 import java.lang.Math;
 
+/**
+*	La classe JoueurVirtuelStrategy hérite de la classe abstraite JoueurStrategy, et représente un joueur de la partie contrôlé par un ordinateur.
+*
+*	@author MATHUBERT Antonin et TOUKO KOUEDJOU Vanelle Tatiana
+*	@version 1.0
+*	@see lo02.shapeup.partie.JoueurStrategy
+*/
 public class JoueurVirtuelStrategy extends JoueurStrategy {
 
+	/**
+	 * Instancie un nouveau joueur virtuel.
+	 */
 	public JoueurVirtuelStrategy() {
 		super();
 	}
 
+	/**
+	 * Instancie un nouveau joueur virtuel en spécifiant son nom.
+	 * @param nom le nom du joueur.
+	 */
 	public JoueurVirtuelStrategy(String nom) {
 		super(nom);
 	}
 
+	/**
+	 * Permet au joueur de jouer son tour.
+	 * Choisit automatiquement les actions à effectuer.
+	 * @param partie la partie dans laquelle le joueur joue.
+	 */
 	public void jouer(Partie partie) {
 
 		if(partie.peutDeplacer()) {
@@ -31,185 +49,30 @@ public class JoueurVirtuelStrategy extends JoueurStrategy {
 		partie.finirTour();
 	}
 
+	/**
+	 * Choisit aléatoirement une carte à jouer dans son jeu.
+	 * @param partie la partie dans laquelle l'ordinateur joue.
+	 * @return la carte jouée.
+	 */
 	private Carte choisirCarte(Partie partie) {
 		return this.jeu.get((int) (Math.random() * this.jeu.size()));
-
-		// PartieElementCalcVisitor visitor = new PartieElementCalcVisitor();
-		// this.accept(visitor);
-		// partie.getPlateau().accept(visitor);
-
-		// int meilleureOption = 0;
-		// int scoreMax = 0;
-
-		// if(this.victorieuse == null) {
-		// 	int meilleureVictorieuse = 0;
-
-		// 	for(int i = 0; i < this.jeu.size(); i++) {
-		// 		this.victorieuse = this.jeu.get(i);
-		// 		int score = visitor.visitPartie(partie).get(0);
-		// 		if(score > scoreMax) {
-		// 			meilleureVictorieuse = i;
-		// 			scoreMax = score;
-		// 		}
-		// 	}
-
-		// 	this.victorieuse = this.jeu.get(meilleureVictorieuse);
-
-		// 	scoreMax = 0;
-
-		// 	for(int i = 0; i < this.jeu.size(); i++) {
-		// 		if(i != meilleureVictorieuse) {
-		// 			List<List<Integer>> positions = partie.getPlateau().getPositionnementsPossibles();
-		// 			ListIterator<List<Integer>> iterator = positions.listIterator();
-		// 			while(iterator.hasNext()) {
-		// 				List<Integer> position = iterator.next();
-		// 				Partie futurePartie = partie;
-		// 				futurePartie.getPlateau().setDisposition(partie.getPlateau().copyPlateau());
-		// 				futurePartie.getPlateau().poserCarte(position.get(0), position.get(1), this.jeu.get(i));
-		// 				futurePartie.getPlateau().accept(visitor);
-		// 				int score = visitor.visitPartie(futurePartie).get(0);
-		// 				if(score >= scoreMax) {
-		// 					meilleureOption = i;
-		// 					scoreMax = score;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-
-		// 	this.victorieuse = null;
-		// }
-		
-		// return this.jeu.get(meilleureOption);
 	}
 
+	/**
+	 * Choisit aléatoirement une position où poser une carte.
+	 * @param partie la partie dans laquelle l'ordinateur joue.
+	 * @return la position choisie.
+	 */
 	private List<Integer> choisirPosition(Partie partie) {
 		return partie.getPositionnementsPossibles().get((int) (Math.random() * partie.getPositionnementsPossibles().size()));
-
-		// System.out.println("Bonjour !");
-		// PartieElementCalcVisitor visitor = new PartieElementCalcVisitor();
-		// this.accept(visitor);
-		// partie.getPlateau().accept(visitor);
-
-		// List<Integer> meilleureOption = null;
-		// int scoreMax = 0;
-
-		// if(this.victorieuse == null) {
-		// 	int meilleureVictorieuse = 0;
-		// 	for(int i = 0; i < this.jeu.size(); i++) {
-		// 		this.victorieuse = this.jeu.get(i);
-		// 		int score = visitor.visitPartie(partie).get(0);
-		// 		System.out.println("Score calculÃ© 1 : " + score);
-		// 		if(score >= scoreMax) {
-		// 			meilleureVictorieuse = i;
-		// 			scoreMax = score;
-		// 		}
-		// 	}
-
-		// 	this.victorieuse = this.jeu.get(meilleureVictorieuse);
-
-		// 	scoreMax = 0;
-
-		// 	for(int i = 0; i < this.jeu.size(); i++) {
-		// 		if(i != meilleureVictorieuse) {
-		// 			List<List<Integer>> positions = partie.getPlateau().getPositionnementsPossibles();
-		// 			System.out.println("Taille positions : " + positions.size());
-		// 			ListIterator<List<Integer>> iterator = positions.listIterator();
-		// 			while(iterator.hasNext()) {
-		// 				List<Integer> position = iterator.next();
-		// 				Partie futurePartie = partie;
-		// 				futurePartie.getPlateau().setDisposition(partie.getPlateau().copyPlateau());
-		// 				futurePartie.getPlateau().poserCarte(position.get(0), position.get(1), this.jeu.get(i));
-		// 				futurePartie.getPlateau().accept(visitor);
-		// 				int score = visitor.visitPartie(futurePartie).get(0);
-		// 				System.out.println("Score calculÃ© 2 : " + score);
-		// 				if(score >= scoreMax) {
-		// 					meilleureOption = position;
-		// 					scoreMax = score;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-
-		// 	this.victorieuse = null;
-		// }
-		// else {
-		// 	List<List<Integer>> positions = partie.getPlateau().getPositionnementsPossibles();
-		// 	System.out.println("Taille positions : " + positions.size());
-		// 	ListIterator<List<Integer>> iterator = positions.listIterator();
-		// 	while(iterator.hasNext()) {
-		// 		List<Integer> position = iterator.next();
-		// 		Partie futurePartie = partie;
-		// 		futurePartie.getPlateau().setDisposition(partie.getPlateau().copyPlateau());
-		// 		futurePartie.getPlateau().poserCarte(position.get(0), position.get(1), this.jeu.get(0));
-		// 		futurePartie.getPlateau().accept(visitor);
-		// 		int score = visitor.visitPartie(futurePartie).get(0);
-		// 		System.out.println("Score calculÃ© 2 : " + score);
-		// 		if(score >= scoreMax) {
-		// 			meilleureOption = position;
-		// 			scoreMax = score;
-		// 		}
-		// 	}
-		// }
-
-		// return meilleureOption;
 	}
 
+	/**
+	 * Choisit aléatoirement le déplacement à effectuer.
+	 * @param partie la partie dans laquelle l'ordinateur joue.
+	 * @return le déplacement choisi.
+	 */
 	private List<Integer> choisirDeplacement(Partie partie) {
 		return partie.getDeplacementsPossibles().get((int) (Math.random() * partie.getDeplacementsPossibles().size()));
-		// PartieElementCalcVisitor visitor = new PartieElementCalcVisitor();
-		// this.accept(visitor);
-		// partie.getPlateau().accept(visitor);
-
-		// List<Integer> meilleureOption = null;
-		// int scoreMax = 0;
-
-		// if(this.victorieuse == null) {
-		// 	int meilleureVictorieuse = 0;
-		// 	for(int i = 0; i < this.jeu.size(); i++) {
-		// 		this.victorieuse = this.jeu.get(i);
-		// 		int score = visitor.visitPartie(partie).get(0);
-		// 		if(score > scoreMax) {
-		// 			meilleureVictorieuse = i;
-		// 			scoreMax = score;
-		// 		}
-		// 	}
-
-		// 	this.victorieuse = this.jeu.get(meilleureVictorieuse);
-
-		// 	scoreMax = 0;
-
-		// 	List<List<Integer>> deplacements = partie.getPlateau().getDeplacementsPossibles();
-		// 	ListIterator<List<Integer>> iterator = deplacements.listIterator();
-		// 	while(iterator.hasNext()) {
-		// 		List<Integer> deplacement = iterator.next();
-		// 		Partie futurePartie = partie;
-		// 		futurePartie.getPlateau().setDisposition(partie.getPlateau().copyPlateau());
-		// 		futurePartie.getPlateau().deplacerCarte(deplacement.get(0), deplacement.get(1), deplacement.get(2), deplacement.get(3));
-		// 		futurePartie.getPlateau().accept(visitor);
-		// 		int score = visitor.visitPartie(futurePartie).get(0);
-		// 		if(score >= scoreMax) {
-		// 			meilleureOption = deplacement;
-		// 			scoreMax = score;
-		// 		}
-		// 	}
-		// }
-		// else {
-		// 	List<List<Integer>> deplacements = partie.getPlateau().getDeplacementsPossibles();
-		// 	ListIterator<List<Integer>> iterator = deplacements.listIterator();
-		// 	while(iterator.hasNext()) {
-		// 		List<Integer> deplacement = iterator.next();
-		// 		Partie futurePartie = partie;
-		// 		futurePartie.getPlateau().setDisposition(partie.getPlateau().copyPlateau());
-		// 		futurePartie.getPlateau().deplacerCarte(deplacement.get(0), deplacement.get(1), deplacement.get(2), deplacement.get(3));
-		// 		futurePartie.getPlateau().accept(visitor);
-		// 		int score = visitor.visitPartie(futurePartie).get(0);
-		// 		if(score >= scoreMax) {
-		// 			meilleureOption = deplacement;
-		// 			scoreMax = score;
-		// 		}
-		// 	}
-		// }
-
-		// return meilleureOption;
 	}
 }
